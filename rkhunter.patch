@@ -1,0 +1,40 @@
+--- rkhunter	2014-03-12 16:54:55.000000000 -0400
++++ rkhunter1	2014-11-21 04:43:44.000000000 -0500
+@@ -32,7 +32,7 @@
+ 
+ BSDOS=0
+ SUNOS=0
+-
++PWD=`pwd`
+ OPERATING_SYSTEM=`uname 2>/dev/null`
+ 
+ case "${OPERATING_SYSTEM}" in
+@@ -911,6 +911,9 @@
+ #jh			fi
+ #jh		fi
+ 
++		if [ -n "`echo \"${FNAME}\" | grep '^[^/].*/'`" ]; then
++			FNAME=${PWD}`echo "${FNAME}" | cut -c2-`
++		fi
+ 
+ 		#
+ 		# First check for anything which contains just dots.
+@@ -18362,7 +18365,8 @@
+ 
+ NOLOG=0
+ RKHLOGFILE=""
+-DFLT_LOGFILE="/var/log/rkhunter.log"
++DFLT_LOGFILE="./log/rkhunter.log"
++RKHLOGFILE="./log/rkhunter.log"
+ 
+ # Set to have the logfile appended to rather than overwritten.
+ APPEND_LOG=0
+@@ -19251,7 +19255,7 @@
+ 	if [ -f /etc/rkhunter.conf ]; then
+ 		CONFIGFILE="/etc/rkhunter.conf"
+ 	else
+-		CONFIGFILE="/usr/local/etc/rkhunter.conf"
++		CONFIGFILE="./rkhunter.conf"
+ 	fi
+ fi
+ 
